@@ -16,7 +16,7 @@ provider "aws" {
 resource "aws_instance" "prodserver" {
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
-  vpc_security_group_ids = ["${var.allow-all-egress-id}", "${var.allow-ssh-id}", "${var.allow-tomcat-id}"]
+  vpc_security_group_ids = ["${var.prodserver_sg_id}"]
   tags = {
     Name = "prodserver"
   }

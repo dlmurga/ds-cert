@@ -22,14 +22,6 @@ variable "aws_credentials" {
   default = "/var/lib/jenkins/.aws/credentials"
 }
 
-variable "allow-all-egress-id" {
-  default = "sg-03c6e44b06e768f35"
-}
-
-variable "allow-ssh-id" {
-  default = "sg-030cdef92b5a83468"
-}
-
-variable "allow-tomcat-id" {
-  default = "sg-0add683087d0243e1"
+variable "prodserver_sg_id" {
+  default = "sg-055f46d9c8d90e67c"
 }
