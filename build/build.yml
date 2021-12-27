@@ -1,0 +1,67 @@
+---
+- name: Building java app
+  hosts: buildserver
+  become: yes
+  vars_files: /var/lib/jenkins/vars/main.yml
+
+  tasks:
+    - name: ensure recuired packages are installed
+      apt:
+        name: [ 'python-pip', 'python3-pip', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'gnupg-agent', 'maven', 'default-jdk', 'git' ]
+        update_cache: yes
+        state: present
+
+- name: Add an apt signing key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add apt repository for Docker stable version
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Ensure required python modules for docker are installed
+      pip:
+        name:
+          - docker
+        state: present
+
+    - name: ensure package folder exists
+      file:
+        path: /package_folder
+        state: directory
+        mode: '0777'
+
+    - name: ensure Dockerfile exists
+      copy:
+        src: Dockerfile
+        dest: /package_folder
+
+    - name: clone git repo with java app code
+      git:
+        repo: http://github.com/efsavage/hello-world-war.git
+        dest: /package_folder
+
+    - name: package java app
+      shell:
+        cmd: mvn package
+        chdir: /package_folder/
+
+    - name: login into dockerhub
+      docker_login:
+        email: {{ docker_mail }}
+        username: {{ docker_user }}
+        password: {{ docker_pass }}
+
+    - name: build docker image wit java_app
+      docker_image:
+        path: /package_folder
+        name: dlmurga/cert-java-app
+        push: yes
