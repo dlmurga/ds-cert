@@ -17,7 +17,7 @@ pipeline {
 
    stage ('Create prodserver and deploy java app') {
      steps{
-
+       sh "ls -l"
      }
    }
 
