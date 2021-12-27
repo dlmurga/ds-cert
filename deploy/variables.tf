@@ -23,9 +23,13 @@ variable "aws_credentials" {
 }
 
 variable "allow-all-egress-id" {
-  default = "sg-0171b8e06648058f3"
+  default = "sg-03c6e44b06e768f35"
+}
+
+variable "allow-ssh-id" {
+  default = "sg-030cdef92b5a83468"
 }
 
 variable "allow-tomcat-id" {
-  default = "sg-029ce0919686ef1e9"
+  default = "sg-0add683087d0243e1"
 }

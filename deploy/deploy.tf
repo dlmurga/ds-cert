@@ -12,39 +12,11 @@ provider "aws" {
   region = "${var.region}"
 }
 
-resource "aws_security_group" "allow-tomcat" {
-  name = "allow-tomcat"
-  ingress {
-    protocol  = "tcp"
-    from_port = 8080
-    to_port   = 8080
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-resource "aws_security_group" "allow-ssh" {
-  name = "allow-ssh"
-  ingress {
-    protocol  = "tcp"
-    from_port = 22
-    to_port   = 22
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_security_group" "allow-all-egress" {
-  name = "allow-all-egress"
-  egress {
-    protocol  = "-1"
-    from_port = 0
-    to_port   = 0
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 
 resource "aws_instance" "prodserver" {
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-tomcat.id, aws_security_group.allow-all-egress.id]
+  vpc_security_group_ids = ["${var.allow-all-egress-id}", "${var.allow-ssh-id}", "${var.allow-tomcat-id}"]
   tags = {
     Name = "prodserver"
   }
