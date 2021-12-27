@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "allow-tomcat" {
-  name = "allow-ssh"
+  name = "allow-tomcat"
   ingress {
     protocol  = "tcp"
     from_port = 8080
@@ -44,7 +44,7 @@ resource "aws_security_group" "allow-all-egress" {
 resource "aws_instance" "prodserver" {
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
-  vpc_security_group_ids = ["${var.allow-tomcat-id}", "${var.allow-all-egress-id}"]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-tomcat.id, aws_security_group.allow-all-egress.id]
   tags = {
     Name = "prodserver"
   }
