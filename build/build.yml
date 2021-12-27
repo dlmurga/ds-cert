@@ -60,7 +60,7 @@
         username: "{{ docker_user }}"
         password: "{{ docker_pass }}"
 
-    - name: build docker image wit java_app
+    - name: build docker image with java_app
       docker_image:
         path: /package_folder
         name: dlmurga/cert-java-app
