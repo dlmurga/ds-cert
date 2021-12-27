@@ -21,3 +21,11 @@ variable "private_key" {
 variable "aws_credentials" {
   default = "/var/lib/jenkins/.aws/credentials"
 }
+
+variable "allow-all-egress-id" {
+  default = "sg-0171b8e06648058f3"
+}
+
+variable "allow-ssh-id" {
+  default = "sg-0bdc683729fc6dfa2"
+}
