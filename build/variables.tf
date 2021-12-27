@@ -17,3 +17,7 @@ variable "keyname" {
 variable "private_key" {
   default = "/var/lib/jenkins/keys/terraform.pem"
 }
+
+variable "aws_credentials" {
+  default = "/var/lib/jenkins/.aws/credentials"
+}
