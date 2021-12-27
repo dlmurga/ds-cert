@@ -32,7 +32,7 @@
           - docker
         state: present
 
-    - name: run docker wit java app
+    - name: run docker with java app
       docker_container:
         name: cert_java_app
         image: dlmurga/cert-java-app
