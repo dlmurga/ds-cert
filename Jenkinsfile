@@ -11,8 +11,7 @@ pipeline {
 
     stage ('Create buildserver ant package java app') {
       steps {
-        sh "cd build/"
-        sh "ls -l"
+        sh "cd build/ && ls -l"
       }
     }
 
