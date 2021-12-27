@@ -11,7 +11,8 @@ pipeline {
 
     stage ('Create buildserver ant package java app') {
       steps {
-        sh "ls -l"
+        sh "cd build/"
+        sh "sudo terraform init"
       }
     }
 
