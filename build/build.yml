@@ -39,11 +39,6 @@
         state: directory
         mode: '0777'
 
-    - name: ensure Dockerfile exists
-      copy:
-        src: Dockerfile
-        dest: /package_folder
-
     - name: clone git repo with java app code
       git:
         repo: http://github.com/efsavage/hello-world-war.git
@@ -53,6 +48,11 @@
       shell:
         cmd: mvn package
         chdir: /package_folder/
+
+    - name: ensure Dockerfile exists
+      copy:
+        src: Dockerfile
+        dest: /package_folder
 
     - name: login into dockerhub
       docker_login:
