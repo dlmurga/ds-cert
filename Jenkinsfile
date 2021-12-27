@@ -12,7 +12,7 @@ pipeline {
 
     stage ('Create buildserver ant package java app') {
       steps {
-        sh "cd build/ && sudo terraform init && sudo terraform plan"
+        sh "cd build/ && sudo terraform init && sudo terraform plan && sudo terraform apply -input=false -auto-approve"
       }
     }
 
